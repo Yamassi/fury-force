@@ -1,33 +1,658 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fury Force — Official Website</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background: #f4f4f4; color: #333; }
-        .container { max-width: 800px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1, h2 { color: #d9534f; }
-        .footer { margin-top: 30px; font-size: 0.9em; color: #777; border-top: 1px solid #ddd; padding-top: 10px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d0b10">
+<title>Fury Force</title>
+<meta name="description" content="Fury Force — a beat-'em-up survivor roguelike for mobile. Punch, kick and rage through endless waves of street thugs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0b10;
+  --bg-2: #17131c;
+  --card: #1d1824;
+  --line: #2e2638;
+  --text: #f2edf5;
+  --muted: #a69cb0;
+  --fury: #ff3b2f;
+  --fury-2: #ff9f1c;
+  --gold: #ffd23f;
+  --radius: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+a { color: var(--fury-2); word-break: break-word; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+[id] { scroll-margin-top: 70px; }
+
+nav {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(13, 11, 16, .88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px; }
+.logo { font-family: "Bangers", cursive; font-size: 28px; letter-spacing: 2px; color: var(--text); text-decoration: none; white-space: nowrap; }
+.logo span { color: var(--fury); }
+.nav-right { display: flex; align-items: center; gap: 22px; }
+nav ul { display: flex; gap: 22px; list-style: none; }
+nav ul a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14px; }
+nav ul a:hover { color: var(--text); }
+
+.lang {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-2);
+}
+.lang button {
+  font: inherit; font-size: 13px; font-weight: 800;
+  padding: 7px 12px;
+  min-height: 36px;
+  border: 0; background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.lang button.active { background: linear-gradient(135deg, var(--fury), var(--fury-2)); color: #fff; }
+
+.hero {
+  position: relative;
+  padding: 110px 0 120px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255, 59, 47, .35), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 85% 80%, rgba(255, 159, 28, .15), transparent 70%),
+    var(--bg);
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(-55deg, transparent 0 22px, rgba(255,255,255,.025) 22px 24px);
+  pointer-events: none;
+}
+.hero .wrap { position: relative; }
+.tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-size: 13px; font-weight: 600;
+  color: var(--fury-2);
+  background: var(--bg-2);
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: "Bangers", cursive;
+  font-size: clamp(60px, 15vw, 150px);
+  line-height: .9;
+  letter-spacing: 4px;
+  background: linear-gradient(180deg, var(--gold) 0%, var(--fury-2) 45%, var(--fury) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 0 #5a0f0a) drop-shadow(0 18px 30px rgba(255, 59, 47, .35));
+  transform: rotate(-3deg);
+}
+.hero p.lead {
+  max-width: 620px; margin: 34px auto 0;
+  font-size: 19px; color: var(--muted);
+}
+.hero p.lead strong { color: var(--text); }
+.cta { margin-top: 38px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 28px;
+  min-height: 50px;
+  border-radius: 12px;
+  font-weight: 800; font-size: 16px;
+  text-decoration: none;
+  transition: transform .15s, box-shadow .15s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary {
+  background: linear-gradient(135deg, var(--fury), var(--fury-2));
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(255, 59, 47, .35);
+}
+.btn-ghost { border: 1px solid var(--line); color: var(--text); background: var(--bg-2); }
+
+section { padding: 90px 0; }
+section.alt { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.section-head { text-align: center; margin-bottom: 50px; }
+.section-head h2 {
+  font-family: "Bangers", cursive;
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.1;
+  letter-spacing: 2px;
+}
+.section-head h2 span { color: var(--fury); }
+.section-head p { color: var(--muted); max-width: 560px; margin: 8px auto 0; }
+
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px;
+  transition: border-color .2s, transform .2s;
+}
+.card:hover { border-color: rgba(255, 59, 47, .55); transform: translateY(-3px); }
+.card .icon {
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  font-size: 24px;
+  background: linear-gradient(135deg, rgba(255,59,47,.2), rgba(255,159,28,.2));
+  margin-bottom: 16px;
+}
+.card h3 { font-size: 18px; margin-bottom: 6px; }
+.card p { color: var(--muted); font-size: 15px; }
+
+.steps { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); counter-reset: step; }
+.step { position: relative; padding: 26px 22px 22px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); }
+.step::before {
+  counter-increment: step;
+  content: counter(step);
+  font-family: "Bangers", cursive;
+  font-size: 54px; line-height: 1;
+  color: var(--fury);
+  display: block; margin-bottom: 8px;
+}
+.step h3 { font-size: 17px; margin-bottom: 4px; }
+.step p { color: var(--muted); font-size: 14px; }
+
+.moves { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.chip {
+  padding: 9px 16px;
+  border-radius: 99px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-weight: 600; font-size: 14px;
+  white-space: nowrap;
+}
+.chip.evo {
+  background: linear-gradient(var(--card), var(--card)) padding-box,
+              linear-gradient(135deg, var(--gold), var(--fury)) border-box;
+  border: 1px solid transparent;
+  color: var(--gold);
+}
+.moves-label { text-align: center; color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin: 34px 0 14px; }
+.moves-label:first-of-type { margin-top: 0; }
+
+.legal { max-width: 760px; margin: 0 auto; }
+.legal .card { padding: 34px; }
+.legal .card:hover { transform: none; border-color: var(--line); }
+.legal h3 { font-size: 17px; margin: 22px 0 6px; }
+.legal h3:first-of-type { margin-top: 0; }
+.legal p, .legal li { color: var(--muted); font-size: 15px; }
+.legal ul { padding-left: 20px; margin-top: 6px; }
+.legal li + li { margin-top: 6px; }
+.legal .updated { font-size: 13px; color: var(--fury-2); margin-bottom: 18px; }
+
+.contact { text-align: center; }
+.contact .mail {
+  display: inline-block; margin-top: 4px;
+  font-size: clamp(18px, 5vw, 26px); font-weight: 800;
+  color: var(--text); text-decoration: none;
+  border-bottom: 3px solid var(--fury);
+  padding-bottom: 2px;
+}
+
+footer { border-top: 1px solid var(--line); padding: 30px 0 calc(30px + env(safe-area-inset-bottom)); color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+.logo { display: inline-flex; align-items: center; gap: 10px; }
+.logo img { width: 34px; height: 34px; border-radius: 9px; }
+.hero-icon {
+  width: 112px; height: 112px;
+  border-radius: 26px;
+  margin: 0 auto 22px;
+  display: block;
+  box-shadow: 0 14px 40px rgba(255, 59, 47, .4), 0 0 0 1px var(--line);
+}
+.btn-play { background: #fff; color: #111; }
+.btn-play svg { width: 22px; height: 22px; flex: none; }
+
+.facts { padding: 0; margin-top: -40px; position: relative; z-index: 2; }
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.fact { padding: 20px 14px; text-align: center; border-right: 1px solid var(--line); }
+.fact:last-child { border-right: 0; }
+.fact b { display: block; font-size: 18px; font-weight: 800; }
+.fact span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+.pegi {
+  display: inline-grid; place-items: center;
+  min-width: 34px; height: 34px; padding: 0 6px;
+  border-radius: 6px;
+  background: #9fc63b; color: #fff;
+  font-size: 15px; font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.shots {
+  display: flex; gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 20px 16px;
+  margin: 0 -20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+.shots img {
+  flex: none;
+  width: 420px; max-width: 82vw;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  scroll-snap-align: center;
+  background: var(--card);
+}
+.shots-hint { text-align: center; color: var(--muted); font-size: 13px; margin-top: 6px; }
+
+@media (hover: none) {
+  .card:hover, .btn:hover { transform: none; }
+}
+
+@media (max-width: 720px) {
+  .wrap { padding: 0 16px; }
+  nav ul { display: none; }
+  .logo { font-size: 24px; }
+  .hero { padding: 64px 0 72px; }
+  .tag { font-size: 12px; margin-bottom: 18px; }
+  .hero h1 { letter-spacing: 2px; }
+  .hero p.lead { font-size: 16px; margin-top: 26px; }
+  .cta { flex-direction: column; align-items: stretch; margin-top: 28px; }
+  .btn { width: 100%; }
+  section { padding: 56px 0; }
+  .section-head { margin-bottom: 30px; }
+  .section-head p { font-size: 15px; }
+  .grid { grid-template-columns: 1fr; gap: 12px; }
+  .card { padding: 20px; display: grid; grid-template-columns: 44px 1fr; column-gap: 14px; align-items: start; }
+  .card .icon { width: 44px; height: 44px; font-size: 22px; margin: 0; grid-row: span 2; }
+  .card h3 { font-size: 16px; margin-bottom: 2px; }
+  .card p { font-size: 14px; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .step { padding: 18px 16px; }
+  .step::before { font-size: 40px; margin-bottom: 4px; }
+  .step h3 { font-size: 15px; }
+  .step p { font-size: 13px; }
+  .hero-icon { width: 92px; height: 92px; border-radius: 22px; }
+  .logo img { width: 30px; height: 30px; }
+  .facts { margin-top: -28px; }
+  .facts-grid { grid-template-columns: repeat(2, 1fr); }
+  .fact { border-bottom: 1px solid var(--line); padding: 16px 10px; }
+  .fact:nth-child(2n) { border-right: 0; }
+  .fact:last-child { grid-column: span 2; border-bottom: 0; }
+  .fact b { font-size: 16px; }
+  .shots { padding: 4px 16px 14px; margin: 0 -16px; gap: 10px; }
+  .moves { gap: 8px; }
+  .chip { padding: 8px 13px; font-size: 13px; }
+  .moves-label { margin: 26px 0 12px; }
+  .legal .card { display: block; padding: 22px 18px; }
+  .legal p, .legal li { font-size: 14px; }
+  footer .wrap { flex-direction: column; align-items: center; text-align: center; }
+}
+
+@media (max-width: 380px) {
+  .steps { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Fury Force</h1>
-        <p>Welcome to the official page of the mobile game <strong>Fury Force</strong>!</p>
-        
-        <h2>Contact Us</h2>
-        <p>If you have any questions, feedback, or support requests, please contact us at:</p>
-        <p>Email: <a href="mailto:support@yourdomain.com">beatsbyziko@gmail.com</a></p>
 
-        <h2>Privacy Policy</h2>
-        <p>Last updated: October 31, 2026</p>
-        <p>The <strong>Fury Force</strong> game respects user privacy. Our application may use third-party ad networks (including <strong>Google AdMob</strong>) which may collect data to serve personalized ads in accordance with Google's policies.</p>
-        <p>We do not collect or store personal user data on our own servers.</p>
-
-        <div class="footer">
-            <p>&copy; 2026 Akkelte. All rights reserved.</p>
-        </div>
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo"><img src="https://play-lh.googleusercontent.com/DtLy6hrGIZsmDhbxEQhk39gQhZwyj070pgVePu-MDNYXbLAPfkPW6m7qvA98nmJAQ_Dlo34lJUbI1ZB8RZHO=w96-h96" alt=""><span style="color:var(--text)">FURY<span>FORCE</span></span></a>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#features" data-i18n="navFeatures">Features</a></li>
+        <li><a href="#screens" data-i18n="navScreens">Screens</a></li>
+        <li><a href="#moves" data-i18n="navMoves">Moves</a></li>
+        <li><a href="#privacy" data-i18n="navPrivacy">Privacy</a></li>
+        <li><a href="#contact" data-i18n="navContact">Contact</a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="ru">RU</button>
+      </div>
     </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="hero-icon" src="https://play-lh.googleusercontent.com/DtLy6hrGIZsmDhbxEQhk39gQhZwyj070pgVePu-MDNYXbLAPfkPW6m7qvA98nmJAQ_Dlo34lJUbI1ZB8RZHO=w240-h240" alt="Fury Force icon">
+    <div class="tag" data-i18n="tag">🥊 Beat-'em-up × Survivor Roguelike</div>
+    <h1>Fury Force</h1>
+    <p class="lead" data-i18n="lead">
+      The streets are flooding with thugs — and you're the only one who fights back.
+      <strong>Punch, kick and rage</strong> through endless waves, level up mid-fight
+      and build the most brutal combo set the city has ever seen.
+    </p>
+    <div class="cta">
+      <a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.fury.force" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#34a853" d="M3.6 1.8 13.4 12 3.6 22.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2Z"/><path fill="#fbbc04" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c1.1-.6 1.1-1.8 0-2.4l-3.9-2.2Z"/><path fill="#4285f4" d="M3.6 22.2c.3.2.8.2 1.3 0l11.9-6.8-3.4-3.4-9.8 10.2Z"/><path fill="#ea4335" d="M3.6 1.8 13.4 12l3.4-3.4L4.9 1.8c-.5-.3-1-.2-1.3 0Z"/></svg>
+        <span data-i18n="ctaPlay">Get it on Google Play</span>
+      </a>
+      <a class="btn btn-primary" href="#features" data-i18n="ctaDiscover">▶ Discover the game</a>
+    </div>
+  </div>
+</header>
+
+<section class="facts">
+  <div class="wrap">
+    <div class="facts-grid">
+      <div class="fact">
+        <div class="pegi" data-i18n="factAgeBadge">7</div>
+        <span data-i18n="factAge">PEGI 7 · Mild violence</span>
+      </div>
+      <div class="fact">
+        <b data-i18n="factFree">Free</b>
+        <span data-i18n="factAds">Contains ads</span>
+      </div>
+      <div class="fact">
+        <b data-i18n="factGenre">Arcade</b>
+        <span data-i18n="factGenreSub">Beat 'em up</span>
+      </div>
+      <div class="fact">
+        <b>Android</b>
+        <span>Google Play</span>
+      </div>
+      <div class="fact">
+        <b>Akkelte</b>
+        <span data-i18n="factDev">Developer</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="featuresTitle">Why you'll <span>rage</span></h2>
+      <p data-i18n="featuresSub">Classic arcade brawling meets the "one more run" loop of a survivor roguelike.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">👊</div>
+        <h3 data-i18n="f1t">Hands-on brawling</h3>
+        <p data-i18n="f1d">No auto-shooting here — jabs, crosses, low kicks and roundhouses land with real weight and screen shake.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌊</div>
+        <h3 data-i18n="f2t">Endless waves</h3>
+        <p data-i18n="f2d">Enemies keep coming and keep getting tougher. How long can you survive before the street takes you down?</p>
+      </div>
+      <div class="card">
+        <div class="icon">⬆️</div>
+        <h3 data-i18n="f3t">Level up mid-fight</h3>
+        <p data-i18n="f3d">Collect XP gems from defeated enemies and pick one of three upgrades every time you level up.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔥</div>
+        <h3 data-i18n="f4t">Fury Mode</h3>
+        <p data-i18n="f4d">Every hit fills your Fury meter. Max it out and unleash a short burst of overwhelming power.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧬</div>
+        <h3 data-i18n="f5t">Attack evolutions</h3>
+        <p data-i18n="f5d">Max out a move, combine it with the right passive and watch it evolve into something devastating.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💀</div>
+        <h3 data-i18n="f6t">Elites & ambushes</h3>
+        <p data-i18n="f6d">Beefed-up elite thugs, sudden swarms, rings and walls of enemies — always be ready to break out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screens" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="shotsTitle">In <span>action</span></h2>
+    </div>
+    <div class="shots">
+      <img loading="lazy" alt="" src="https://play-lh.googleusercontent.com/AAUr5GUmEq3pwWANiAKi2Cy1V3fmfaNSnGocFyNP4-VRXt25upX6ZcCCC49W3IiKfxLPYryIetTL5QD-h7MsZQ=w840-h472">
+      <img loading="lazy" alt="" src="https://play-lh.googleusercontent.com/UkTvp9TViNw2LydM0imhJLi4bpaG8RotGtl8ve0lyG4ruBtVEheSebmAf8_ycBIPqadgVHL23D1QCzsoZAIdxg=w840-h472">
+      <img loading="lazy" alt="" src="https://play-lh.googleusercontent.com/YnDWohRQei7SEnuM_dy9ohOjIqYard5uRpKQjVb2BoHEgW-VUHFL2SU0MJCpdI0KQnw25aE3p-HvpTPLwgD9qg=w840-h472">
+      <img loading="lazy" alt="" src="https://play-lh.googleusercontent.com/kIkq2zbajc3j4amZBhryNgySK_cg_xKu2Y1IQx-WPhtXjMTcb18bVZIJfb6WaEGz4gE32G9CJyEvjzixeGE1dQ=w840-h472">
+      <img loading="lazy" alt="" src="https://play-lh.googleusercontent.com/_4VeQCut3LS0_KWAq7mRDJnsHt1u9a9_udvZZo8AkwWH6SPcqfiKRh0S_0C3rGYN2b8YT-RbALB0a0XI9-iOaA=w840-h472">
+      <img loading="lazy" alt="" src="https://play-lh.googleusercontent.com/bGK1Tlbn7CNvcWm-XPVGvp0reUEvBJPUJSf4FzQpSSVQq-pTNcVLgw1slRiQaiOj_BhepgtGAKzGDaEnCxuf-HE=w840-h472">
+      <img loading="lazy" alt="" src="https://play-lh.googleusercontent.com/tEQGN1RCVSTfzAOe7DHzmxHsvIrpghKz45pDVUMHWh9rGDLUsOJYhkFKY_7GuZnU05My2zrpBJx1_3wm3Wqx=w840-h472">
+      <img loading="lazy" alt="" src="https://play-lh.googleusercontent.com/ASlM9r7ALGdU7DhCoxYAHnka7oVIvVE-c343EKC-ORpGkaMZKhfpgUfySf8g72MIjfrEzk1SZH2kYBaQFyu86Q=w840-h472">
+    </div>
+    <p class="shots-hint" data-i18n="shotsHint">← swipe →</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="runTitle">How a <span>run</span> goes</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3 data-i18n="s1t">Step into the arena</h3>
+        <p data-i18n="s1d">One fighter, bare fists, and a street full of enemies closing in.</p>
+      </div>
+      <div class="step">
+        <h3 data-i18n="s2t">Smash & collect</h3>
+        <p data-i18n="s2d">Knock them out, grab coins, XP gems and healing pickups.</p>
+      </div>
+      <div class="step">
+        <h3 data-i18n="s3t">Build your style</h3>
+        <p data-i18n="s3d">Stack new attacks and passives — speed, power, reach, luck.</p>
+      </div>
+      <div class="step">
+        <h3 data-i18n="s4t">Push your record</h3>
+        <p data-i18n="s4d">Survive longer, beat your best time and kill count. Then go again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="moves" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="movesTitle">Your <span>arsenal</span></h2>
+      <p data-i18n="movesSub">Mix strikes and passives into your own build every run.</p>
+    </div>
+    <div class="moves-label" data-i18n="lblAttacks">Attacks</div>
+    <div class="moves">
+      <span class="chip">Jab</span>
+      <span class="chip">Cross</span>
+      <span class="chip">Haymaker</span>
+      <span class="chip">Low Kick</span>
+      <span class="chip">Round Kick</span>
+      <span class="chip">Stomp</span>
+      <span class="chip">Cyclone</span>
+      <span class="chip">Pull</span>
+    </div>
+    <div class="moves-label" data-i18n="lblPassives">Passives</div>
+    <div class="moves">
+      <span class="chip">Iron Fists</span>
+      <span class="chip">Thick Skin</span>
+      <span class="chip">Big Heart</span>
+      <span class="chip">Quick Feet</span>
+      <span class="chip">Hustle</span>
+      <span class="chip">Adrenaline</span>
+      <span class="chip">Wide Swing</span>
+      <span class="chip">Second Wind</span>
+      <span class="chip">Lucky Charm</span>
+    </div>
+    <div class="moves-label" data-i18n="lblEvolutions">Evolutions</div>
+    <div class="moves">
+      <span class="chip evo">⚡ Thunder Cross</span>
+      <span class="chip evo">🌪 Tornado Kick</span>
+      <span class="chip evo">🔨 Hammer Jab</span>
+      <span class="chip evo">🗡 Razor Kick</span>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="privacyTitle">Privacy <span>Policy</span></h2>
+    </div>
+    <div class="legal">
+      <div class="card">
+        <p class="updated" data-i18n="updated">Last updated: October 31, 2026</p>
+        <h3 data-i18n="p1t">Overview</h3>
+        <p data-i18n="p1d">The <strong>Fury Force</strong> game (developer: Akkelte) respects your privacy. We do not collect or store personal user data on our own servers.</p>
+        <h3 data-i18n="p2t">Third-party services</h3>
+        <p data-i18n="p2d">The game uses the following third-party services, which may collect data in accordance with their own policies:</p>
+        <ul>
+          <li data-i18n="p2a"><strong>Google AdMob</strong> — to serve ads, which may be personalized. <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">Google Ads policy</a></li>
+          <li data-i18n="p2b"><strong>Google Firebase Analytics</strong> — anonymous usage statistics to help us improve the game. <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase privacy</a></li>
+        </ul>
+        <h3 data-i18n="pDt">Data collected by third parties</h3>
+        <p data-i18n="pDd">These services may collect app activity (e.g. sessions and in-game events), device identifiers such as the advertising ID, approximate location and other diagnostic data. Data is encrypted in transit.</p>
+        <h3 data-i18n="pRt">Data deletion</h3>
+        <p data-i18n="pRd">You can request deletion of data associated with your device by emailing <a href="mailto:akkelte.games@gmail.com">akkelte.games@gmail.com</a>. You can also reset or delete your advertising ID in your device settings.</p>
+        <h3 data-i18n="p3t">Age rating</h3>
+        <p data-i18n="p3d">The game is rated PEGI 7 (mild violence). It is not directed primarily at children under 13, and we do not knowingly collect personal information from them.</p>
+        <h3 data-i18n="p4t">Changes</h3>
+        <p data-i18n="p4d">We may update this policy from time to time. Changes will be posted on this page with an updated date.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="contactTitle">Get in <span>touch</span></h2>
+      <p data-i18n="contactSub">Questions, feedback, bug reports or support requests — drop us a line.</p>
+    </div>
+    <a class="mail" href="mailto:akkelte.games@gmail.com">akkelte.games@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span data-i18n="copyright">&copy; 2026 Akkelte. All rights reserved.</span>
+    <span>Fury Force</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var ru = {
+    navFeatures: "Об игре",
+    navMoves: "Удары",
+    navScreens: "Скриншоты",
+    navPrivacy: "Конфиденциальность",
+    navContact: "Контакты",
+    tag: "🥊 Битемап × Survivor-рогалик",
+    lead: "Улицы заполонили бандиты — и только ты готов дать отпор. <strong>Бей, пинай и впадай в ярость</strong>, сражаясь с бесконечными волнами врагов, прокачивайся прямо в бою и собери самый жестокий набор ударов в городе.",
+    ctaDiscover: "▶ Узнать об игре",
+    ctaPlay: "Скачать в Google Play",
+    factAge: "PEGI 7 · Лёгкое насилие",
+    factFree: "Бесплатно",
+    factAds: "Есть реклама",
+    factGenre: "Аркада",
+    factGenreSub: "Beat 'em up",
+    factDev: "Разработчик",
+    shotsTitle: "Скриншоты <span>игры</span>",
+    shotsHint: "← листай →",
+    pDt: "Данные, которые собирают сторонние сервисы",
+    pDd: "Эти сервисы могут собирать историю действий в приложении (сессии и игровые события), идентификаторы устройства, например рекламный идентификатор, приблизительное местоположение и другие диагностические данные. Данные шифруются при передаче.",
+    pRt: "Удаление данных",
+    pRd: "Вы можете запросить удаление данных, связанных с вашим устройством, написав на <a href=\"mailto:akkelte.games@gmail.com\">akkelte.games@gmail.com</a>. Также можно сбросить или удалить рекламный идентификатор в настройках устройства.",
+    featuresTitle: "Почему ты <span>взбесишься</span>",
+    featuresSub: "Классический аркадный мордобой и затягивающий цикл «ещё один забег» survivor-рогалика.",
+    f1t: "Настоящий мордобой",
+    f1d: "Никакой автострельбы — джебы, кроссы, лоу-кики и круговые удары бьют с весом и тряской экрана.",
+    f2t: "Бесконечные волны",
+    f2d: "Враги всё прибывают и становятся сильнее. Сколько ты продержишься, прежде чем улица тебя сломает?",
+    f3t: "Прокачка в бою",
+    f3d: "Собирай кристаллы опыта с поверженных врагов и на каждом уровне выбирай одно из трёх улучшений.",
+    f4t: "Режим ярости",
+    f4d: "Каждый удар заполняет шкалу ярости. Заполни её до конца — и обрушь на врагов взрыв сокрушительной силы.",
+    f5t: "Эволюция ударов",
+    f5d: "Прокачай удар до максимума, добавь подходящую пассивку — и он превратится в нечто разрушительное.",
+    f6t: "Элиты и засады",
+    f6d: "Усиленные элитные громилы, внезапные толпы, кольца и стены из врагов — будь готов прорываться.",
+    runTitle: "Как проходит <span>забег</span>",
+    s1t: "Выйди на арену",
+    s1d: "Один боец, голые кулаки и улица, полная наступающих врагов.",
+    s2t: "Круши и собирай",
+    s2d: "Вырубай врагов, подбирай монеты, кристаллы опыта и аптечки.",
+    s3t: "Собери свой стиль",
+    s3d: "Комбинируй новые удары и пассивки — скорость, сила, дальность, удача.",
+    s4t: "Бей рекорды",
+    s4d: "Продержись дольше, побей свой лучший результат по времени и убийствам. И снова в бой.",
+    movesTitle: "Твой <span>арсенал</span>",
+    movesSub: "В каждом забеге собирай свой билд из ударов и пассивных умений.",
+    lblAttacks: "Удары",
+    lblPassives: "Пассивки",
+    lblEvolutions: "Эволюции",
+    privacyTitle: "Политика <span>конфиденциальности</span>",
+    updated: "Последнее обновление: 31 октября 2026",
+    p1t: "Общие положения",
+    p1d: "Игра <strong>Fury Force</strong> (разработчик: Akkelte) уважает вашу конфиденциальность. Мы не собираем и не храним персональные данные пользователей на собственных серверах.",
+    p2t: "Сторонние сервисы",
+    p2d: "Игра использует следующие сторонние сервисы, которые могут собирать данные в соответствии со своими политиками:",
+    p2a: "<strong>Google AdMob</strong> — показ рекламы, которая может быть персонализированной. <a href=\"https://policies.google.com/technologies/ads?hl=ru\" target=\"_blank\" rel=\"noopener\">Политика Google в отношении рекламы</a>",
+    p2b: "<strong>Google Firebase Analytics</strong> — анонимная статистика использования, которая помогает нам улучшать игру. <a href=\"https://firebase.google.com/support/privacy\" target=\"_blank\" rel=\"noopener\">Конфиденциальность Firebase</a>",
+    p3t: "Возрастной рейтинг",
+    p3d: "Игре присвоен рейтинг PEGI 7 (лёгкое насилие). Она не предназначена в первую очередь для детей младше 13 лет, и мы сознательно не собираем их персональные данные.",
+    p4t: "Изменения",
+    p4d: "Мы можем время от времени обновлять эту политику. Изменения публикуются на этой странице с новой датой.",
+    contactTitle: "Напиши <span>нам</span>",
+    contactSub: "Вопросы, отзывы, сообщения об ошибках или запросы в поддержку — пиши.",
+    copyright: "&copy; 2026 Akkelte. Все права защищены."
+  };
+
+  var nodes = document.querySelectorAll("[data-i18n]");
+  var en = {};
+  nodes.forEach(function (n) { en[n.dataset.i18n] = n.innerHTML; });
+  var dict = { en: en, ru: ru };
+  var buttons = document.querySelectorAll(".lang button");
+
+  function apply(lang) {
+    var d = dict[lang] || en;
+    nodes.forEach(function (n) {
+      var v = d[n.dataset.i18n];
+      if (v !== undefined) n.innerHTML = v;
+    });
+    document.documentElement.lang = lang;
+    buttons.forEach(function (b) { b.classList.toggle("active", b.dataset.lang === lang); });
+    try { localStorage.setItem("ff-lang", lang); } catch (e) {}
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem("ff-lang"); } catch (e) {}
+  var queryLang = new URLSearchParams(location.search).get("lang");
+  var browserLang = (navigator.language || "en").toLowerCase().indexOf("ru") === 0 ? "ru" : "en";
+  apply(queryLang === "ru" || queryLang === "en" ? queryLang : saved || browserLang);
+
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () { apply(b.dataset.lang); });
+  });
+})();
+</script>
 </body>
 </html>
