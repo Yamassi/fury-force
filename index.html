@@ -646,8 +646,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   var saved = null;
   try { saved = localStorage.getItem("ff-lang"); } catch (e) {}
   var queryLang = new URLSearchParams(location.search).get("lang");
-  var browserLang = (navigator.language || "en").toLowerCase().indexOf("ru") === 0 ? "ru" : "en";
-  apply(queryLang === "ru" || queryLang === "en" ? queryLang : saved || browserLang);
+  apply(queryLang === "ru" || queryLang === "en" ? queryLang : saved || "en");
 
   buttons.forEach(function (b) {
     b.addEventListener("click", function () { apply(b.dataset.lang); });
