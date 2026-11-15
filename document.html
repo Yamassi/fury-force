@@ -425,6 +425,19 @@ footer { margin-top: 48px; padding: 28px 0 40px; border-top: 1px solid var(--lin
       </tbody>
     </table>
   </div>
+  <h3>Особые враги</h3>
+  <p>У этих врагов своё поведение. Они не ждут очереди так же, как обычные.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Враг</th><th>Как выглядит</th><th>Что делает</th><th>Здоровье</th><th>Урон</th><th>Монеты</th></tr></thead>
+      <tbody>
+        <tr><td><b>Шустрик</b> (Runt)</td><td>девушка в куртке, маленькая (×0.8)</td><td>Очень быстрый (×1.95), бьёт только руками, атакует <b>без очереди</b> — сразу, как добежал. Приходит пачками.</td><td>5</td><td>2</td><td>1</td></tr>
+        <tr><td><b>Громила</b> (Brute)</td><td>крупный (×1.4) в деловом костюме</td><td>Медленный (×0.7). <b>Не вздрагивает</b> от ударов, его не отталкивает и не сбивает замах — валится только от подброса (финишер, Shockwave, Whirlwind). Бьёт ногой с долгим замахом (1.3 с), широко.</td><td>60</td><td>10</td><td>8</td></tr>
+        <tr><td><b>Таран</b> (Charger)</td><td>полицейский</td><td>С расстояния 3.5–7 м останавливается, 0.8 с мигает (замах), потом бежит по прямой и бьёт с уроном ×1.5. После рывка 1.2 с стоит. Рывок не чаще раза в 4 с. Удар по нему во время мигания срывает рывок. Вблизи дерётся как обычный враг.</td><td>14</td><td>6 (рывок 9)</td><td>4</td></tr>
+        <tr><td><b>Обходчик</b> (Flanker)</td><td>девушка в пальто</td><td>Не лезет в лоб: обходит игрока по кругу и бьёт ногой <b>только со спины</b>. Атакует без очереди. Если игрок развернулся к нему — снова заходит за спину.</td><td>11</td><td>5</td><td>3</td></tr>
+      </tbody>
+    </table>
+  </div>
   <h3>Рост сложности со временем</h3>
   <p>Враги, которые появляются позже, сильнее: значения считаются от минуты появления.</p>
   <div class="table-wrap">
@@ -447,10 +460,10 @@ footer { margin-top: 48px; padding: 28px 0 40px; border-top: 1px solid var(--lin
       <thead><tr><th>С какого времени</th><th>Врагов одновременно</th><th>Новый враг каждые</th><th>Кто приходит</th></tr></thead>
       <tbody>
         <tr><td>0:00</td><td>до 6</td><td>0.8 с</td><td>Red Street (чаще), Grey Street</td></tr>
-        <tr><td>1:00</td><td>до 10</td><td>0.6 с</td><td>Red Street, Grey Street, Green Street, Blue Street</td></tr>
-        <tr><td>2:00</td><td>до 14</td><td>0.5 с</td><td>Grey Street, Green Street, Blue Street, Blue Jacket, Grey Jacket</td></tr>
-        <tr><td>4:00</td><td>до 18</td><td>0.4 с</td><td>Blue Street, Blue Jacket, Grey Jacket, Purple Jacket, Red Jacket</td></tr>
-        <tr><td>6:00</td><td>до 24</td><td>0.3 с</td><td>все 8 типов поровну</td></tr>
+        <tr><td>1:00</td><td>до 10</td><td>0.6 с</td><td>Red Street, Grey Street, Green Street, Blue Street, Шустрик</td></tr>
+        <tr><td>2:00</td><td>до 14</td><td>0.5 с</td><td>Grey Street, Green Street, Blue Street, Blue Jacket, Grey Jacket, Шустрик, Обходчик</td></tr>
+        <tr><td>4:00</td><td>до 18</td><td>0.4 с</td><td>Blue Street, Blue Jacket, Grey Jacket, Purple Jacket, Red Jacket, Шустрик, Обходчик, Таран, Громила</td></tr>
+        <tr><td>6:00</td><td>до 24</td><td>0.3 с</td><td>все 8 обычных типов поровну + Шустрик (вдвое чаще), Обходчик, Таран, Громила</td></tr>
       </tbody>
     </table>
   </div>
@@ -487,6 +500,7 @@ footer { margin-top: 48px; padding: 28px 0 40px; border-top: 1px solid var(--lin
         <tr><td>2:30</td><td><b>Кольцо</b></td><td>Враги стоят кругом вокруг игрока (12 м) и сходятся к нему.</td><td>8 × Red Street</td></tr>
         <tr><td>3:30</td><td><b>Стая</b></td><td>Плотная группа появляется с одной стороны и быстро бежит на игрока (скорость ×1.6).</td><td>8 × Green Street</td></tr>
         <tr><td>4:30</td><td><b>Стена</b></td><td>Шеренга врагов появляется с одной стороны и идёт на игрока.</td><td>10 × Blue Jacket</td></tr>
+        <tr><td>5:30</td><td><b>Стая</b></td><td>Пачка Шустриков с одной стороны (скорость ×1.2).</td><td>12 × Шустрик</td></tr>
         <tr><td>7:00</td><td><b>Кольцо</b></td><td>Кольцо на 10 м.</td><td>16 × Red Jacket</td></tr>
         <tr><td>9:00</td><td><b>Стая</b></td><td>Очень быстрая стая (скорость ×1.8).</td><td>14 × Purple Jacket</td></tr>
       </tbody>
